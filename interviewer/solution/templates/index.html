@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Stacks</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 860px; margin: 40px auto; padding: 0 16px; color: #1d2330; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid #dde1e8; }
+    th { font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: #5b6475; }
+    .pill { font-size: 12px; padding: 2px 8px; border-radius: 10px; background: #e8ecf3; }
+  </style>
+</head>
+<body>
+  <h1>Stacks</h1>
+  <p>{{ books|length }} books</p>
+  <table>
+    <thead>
+      <tr><th>#</th><th>Title</th><th>Author</th><th>Year</th><th>Donated by</th><th>Times borrowed</th><th>Status</th></tr>
+    </thead>
+    <tbody>
+      {% for b in books %}
+      <tr>
+        <td>{{ b.id }}</td>
+        <td>{{ b.title }}</td>
+        <td>{{ b.author }}</td>
+        <td>{{ b.year or "—" }}</td>
+        <td>{{ b.donor.name if b.donor else "—" }}</td>
+        <td>{{ b.loans.count() }}</td>
+        <td><span class="pill">{{ "available" if b.is_available() else "on loan" }}</span></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</body>
+</html>
